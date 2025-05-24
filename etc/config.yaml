@@ -6,7 +6,7 @@ Port: 8080
 MySQL:
   Name: "fly"         
   User: "root"                  
-  Password: "password"         
+  Password: "chenhaoqi318912"
   Host: "localhost"             
   Port: 3306                    
 

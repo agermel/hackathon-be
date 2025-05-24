@@ -16,6 +16,7 @@ type (
 	ScoreModel interface {
 		scoreModel
 		withSession(session sqlx.Session) ScoreModel
+		FindTop10(ctx context.Context) ([]Score, error)
 	}
 
 	customScoreModel struct {

@@ -24,7 +24,25 @@ func NewGetleaderboardLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 }
 
 func (l *GetleaderboardLogic) Getleaderboard() (resp *types.LeaderboardRes, err error) {
-	// todo: add your logic here and delete this line
+	scores, err := l.svcCtx.ScoreModel.FindTop10(l.ctx)
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	var data []types.Score
+
+	for _, score := range scores {
+		data = append(data, types.Score{
+			Username: score.Username,
+			Score:    int(score.Score),
+		})
+	}
+
+	return &types.LeaderboardRes{
+		Base: types.Base{
+			Code: 200,
+			Msg:  "success",
+		},
+		Data: data,
+	}, nil
 }

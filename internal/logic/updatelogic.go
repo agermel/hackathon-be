@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 
+	"hackathon_be/internal/model"
 	"hackathon_be/internal/svc"
 	"hackathon_be/internal/types"
 
@@ -24,7 +25,20 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 }
 
 func (l *UpdateLogic) Update(req *types.ScoreReq) (resp *types.GeneralRes, err error) {
-	// todo: add your logic here and delete this line
+	var score model.Score
+	score.Score = int64(req.Score)
+	score.Username = req.Username
 
-	return
+	err = l.svcCtx.ScoreModel.Update(l.ctx, &score)
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.GeneralRes{
+		Base: types.Base{
+			Code: 200,
+			Msg:  "success",
+		},
+		Data: types.EmptyData{},
+	}, err
 }

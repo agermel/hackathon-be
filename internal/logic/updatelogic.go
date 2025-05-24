@@ -29,7 +29,7 @@ func (l *UpdateLogic) Update(req *types.ScoreReq) (resp *types.GeneralRes, err e
 	score.Score = int64(req.Score)
 	score.Username = req.Username
 
-	err = l.svcCtx.ScoreModel.Update(l.ctx, &score)
+	_, err = l.svcCtx.ScoreModel.Insert(l.ctx, &score)
 	if err != nil {
 		return nil, err
 	}

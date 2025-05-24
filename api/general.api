@@ -1,0 +1,38 @@
+syntax = "v1"
+
+@server (
+	name:   "ha-api"
+	prefix: "/api/v1"
+)
+service ha-api {
+	@handler update
+	post /update (ScoreReq) returns (GeneralRes)
+
+	@handler getleaderboard
+	get /leaderboard returns (LeaderboardRes)
+}
+
+type (
+	ScoreReq {
+		username string `json:"username"`
+		score    int    `json:"score"`
+	}
+	Score {
+		username string `json:"username"`
+		score    int    `json:"score"`
+	}
+	Base {
+		code int    `json:"code"`
+		msg  string `json:"msg"`
+	}
+	EmptyData  {}
+	GeneralRes {
+		Base
+		Data EmptyData `json:"data"`
+	}
+	LeaderboardRes {
+		Base
+		Data []Score `json:"scores"`
+	}
+)
+

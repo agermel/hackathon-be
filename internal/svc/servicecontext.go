@@ -18,3 +18,4 @@ func NewServiceContext(c config.Config, conn sqlx.SqlConn) *ServiceContext {
 		ScoreModel: model.NewScoreModel(conn),
 	}
 }
+
